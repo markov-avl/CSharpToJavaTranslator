@@ -1,9 +1,9 @@
-from .statement_body import StatementBody
+from .statement import Statement
 from .body import Body
 from translator.lexical_analyzer.expression import Expression
 
 
-class Conditioned(StatementBody):
+class Conditioned(Statement):
     def __init__(self, name: str, condition: Expression, body: Body, pre: bool = True):
         self._name = name
         self._condition = condition

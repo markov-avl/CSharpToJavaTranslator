@@ -1,15 +1,17 @@
+from .declaration import Declaration
 from .access_modifier import AccessModifier
-from .declaration_body import DeclarationBody
 from .function_param import FunctionParam
 from translator.lexical_analyzer.statement import Statement
 
 
-class Function(DeclarationBody):
+class Function(Declaration):
     def __init__(self,
+                 name: str,
                  access_modifier: AccessModifier,
                  params: list[FunctionParam],
                  statements: list[Statement],
                  return_type: str):
+        super().__init__(name)
         self._access_modifier = access_modifier
         self._params = params
         self._statements = statements

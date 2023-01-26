@@ -1,9 +1,9 @@
 from .declaration import Declaration
-from .declaration_body import DeclarationBody
 
 
-class Class(DeclarationBody):
-    def __init__(self, functions: list[Declaration]):
+class Class(Declaration):
+    def __init__(self, name: str, functions: list[Declaration]):
+        super().__init__(name)
         self._functions = functions
 
     @property

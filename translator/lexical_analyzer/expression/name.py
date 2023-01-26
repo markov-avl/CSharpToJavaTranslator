@@ -1,7 +1,7 @@
-from .expression_body import ExpressionBody
+from .expression import Expression
 
 
-class Name(ExpressionBody):
+class Name(Expression):
     def __init__(self, value: str):
         self._value = value
 

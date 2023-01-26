@@ -1,8 +1,7 @@
 from .expression import Expression
-from .expression_body import ExpressionBody
 
 
-class Paren(ExpressionBody):
+class Paren(Expression):
     def __init__(self, expression: Expression):
         self._expression = expression
 

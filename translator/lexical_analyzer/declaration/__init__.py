@@ -1,5 +1,4 @@
 from .declaration import Declaration
-from .declaration_body import DeclarationBody
 from .variable import Variable
 from .function import Function
 from .class_ import Class

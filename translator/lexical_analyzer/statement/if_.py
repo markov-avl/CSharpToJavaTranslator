@@ -1,9 +1,9 @@
-from .statement_body import StatementBody
+from .statement import Statement
 from .conditioned import Conditioned
 from .body import Body
 
 
-class If(StatementBody):
+class If(Statement):
     def __init__(self, if_block: Conditioned, else_if_blocks: list[Conditioned] = None, else_block: Body = None):
         self._if = if_block
         self._else_ifs = else_if_blocks

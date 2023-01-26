@@ -1,9 +1,8 @@
 from .expression import Expression
-from .expression_body import ExpressionBody
 from translator.lexical_analyzer import token
 
 
-class Binary(ExpressionBody):
+class Binary(Expression):
     def __init__(self, operation: token.Binary, left: Expression, right: Expression):
         self._operation = operation
         self._left = left

@@ -1,10 +1,5 @@
-from .declaration import DeclarationBody
+from .declaration import Declaration
 
 
-class ImportUsing(DeclarationBody):
-    def __init__(self, imported: str):
-        self._imported = imported
-
-    @property
-    def imported(self) -> str:
-        return self._imported
+class ImportUsing(Declaration):
+    pass

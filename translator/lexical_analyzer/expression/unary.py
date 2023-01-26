@@ -1,9 +1,8 @@
 from .expression import Expression
-from .expression_body import ExpressionBody
 from translator.lexical_analyzer import token
 
 
-class Unary(ExpressionBody):
+class Unary(Expression):
     def __init__(self, operation: token.Unary, expression: Expression):
         self._operation = operation
         self._expression = expression

@@ -1,9 +1,10 @@
-from .declaration_body import DeclarationBody
+from .declaration import Declaration
 from translator.lexical_analyzer.expression import Expression
 
 
-class Variable(DeclarationBody):
-    def __init__(self, type_: str, expression: Expression):
+class Variable(Declaration):
+    def __init__(self, name: str, type_: str, expression: Expression):
+        super().__init__(name)
         self._type = type_
         self._expression = expression
 
