@@ -1,9 +1,10 @@
 from .body import Body
 from .statement import Statement
+from .statement_body import StatementBody
 from translator.lexical_analyzer.expression import Expression
 
 
-class For:
+class For(StatementBody):
     def __init__(self, initialization: Statement, condition: Expression, next_: Statement, body: Body):
         self._initialization = initialization
         self._condition = condition
