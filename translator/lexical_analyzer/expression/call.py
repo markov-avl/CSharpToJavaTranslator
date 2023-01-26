@@ -1,7 +1,8 @@
 from .expression import Expression
+from .expression_body import ExpressionBody
 
 
-class Call:
+class Call(ExpressionBody):
     def __init__(self, name: str, arguments: list[Expression]):
         self._name = name
         self._arguments = arguments

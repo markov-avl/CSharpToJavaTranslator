@@ -1,24 +1,25 @@
 from .expression import Expression
+from .expression_body import ExpressionBody
 from translator.lexical_analyzer import token
 
 
-class Binary:
-    def __init__(self, operation: token.Binary, left_expression: Expression, right_expression: Expression):
+class Binary(ExpressionBody):
+    def __init__(self, operation: token.Binary, left: Expression, right: Expression):
         self._operation = operation
-        self._left_expression = left_expression
-        self._right_expression = right_expression
+        self._left = left
+        self._right = right
 
     @property
     def operation(self) -> token.Binary:
         return self._operation
 
     @property
-    def left_expression(self) -> Expression:
-        return self._left_expression
+    def left(self) -> Expression:
+        return self._left
 
     @property
-    def right_expression(self) -> Expression:
-        return self._right_expression
+    def right(self) -> Expression:
+        return self._right
 
     def __str__(self) -> str:
         return str(self._operation)

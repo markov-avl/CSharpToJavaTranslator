@@ -1,20 +1,10 @@
-from __future__ import annotations
+from .expression_body import ExpressionBody
 
 
 class Expression:
-    __slots__ = [
-        '_body',
-        'type',
-        'name',
-        'call',
-        'unary',
-        'binary',
-        'paren'
-    ]
-
-    def __init__(self, body: Expression):
+    def __init__(self, body: ExpressionBody):
         self._body = body
 
     @property
-    def body(self) -> Expression:
+    def body(self) -> ExpressionBody:
         return self._body

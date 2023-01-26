@@ -1,0 +1,2 @@
+class StatementBody:
+    pass

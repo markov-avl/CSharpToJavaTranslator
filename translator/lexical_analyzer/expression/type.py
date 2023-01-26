@@ -1,4 +1,7 @@
-class Type:
+from .expression_body import ExpressionBody
+
+
+class Type(ExpressionBody):
     def __init__(self, name: str):
         self._name = name
 

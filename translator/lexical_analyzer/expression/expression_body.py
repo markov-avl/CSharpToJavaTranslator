@@ -1,0 +1,2 @@
+class ExpressionBody:
+    pass
