@@ -1,14 +1,31 @@
-from .token_type import TokenType
+import re
+
+from .token import Token
 
 
-class Assignable(TokenType):
-    def is_assignable(cls) -> bool:
-        return True
+class Assignable(Token):
+    pass
 
 
-TokenType.assign = Assignable('=')
-TokenType.plus_assign = Assignable('+=')
-TokenType.minus_assign = Assignable('-=')
-TokenType.mul_assign = Assignable('*=')
-TokenType.div_assign = Assignable('/=')
-TokenType.mod_assign = Assignable('%=')
+class Assign(Assignable):
+    PATTERN = re.compile(r'^=')
+
+
+class PlusAssign(Assignable):
+    PATTERN = re.compile(r'^\+=')
+
+
+class MinusAssign(Assignable):
+    PATTERN = re.compile(r'^-=')
+
+
+class MulAssign(Assignable):
+    PATTERN = re.compile(r'^\*=')
+
+
+class DivAssign(Assignable):
+    PATTERN = re.compile(r'^/=')
+
+
+class ModAssign(Assignable):
+    PATTERN = re.compile(r'^%=')

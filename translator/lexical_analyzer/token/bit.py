@@ -1,13 +1,13 @@
+import re
+
 from .operation import Operation
 from .unary import Unary
 from .binary import Binary
-from .token_type import TokenType
 from .ordered import Order
 
 
 class Bit(Operation):
-    def is_bit(cls) -> bool:
-        return True
+    pass
 
 
 class BitUnary(Bit, Unary):
@@ -18,9 +18,40 @@ class BitBinary(Bit, Binary):
     pass
 
 
-TokenType.bit_not = BitUnary('~')
-TokenType.bit_and = BitBinary('&', Order.HIGH)
-TokenType.bit_or = BitBinary('|', Order.HIGH)
-TokenType.bit_xor = BitBinary('^', Order.HIGH)
-TokenType.shift_left = BitBinary('<<', Order.HIGH)
-TokenType.shift_right = BitBinary('>>', Order.HIGH)
+class BitNot(BitUnary):
+    PATTERN = re.compile(r'^~')
+
+
+class BitAnd(BitBinary):
+    PATTERN = re.compile(r'^&')
+
+    def __init__(self, content: str, line: int = None, column: int = None):
+        super().__init__(content, Order.HIGH, line, column)
+
+
+class BitOr(BitBinary):
+    PATTERN = re.compile(r'^\|')
+
+    def __init__(self, content: str, line: int = None, column: int = None):
+        super().__init__(content, Order.HIGH, line, column)
+
+
+class BitXor(BitBinary):
+    PATTERN = re.compile(r'^\^')
+
+    def __init__(self, content: str, line: int = None, column: int = None):
+        super().__init__(content, Order.HIGH, line, column)
+
+
+class ShiftLeft(BitBinary):
+    PATTERN = re.compile(r'^<<')
+
+    def __init__(self, content: str, line: int = None, column: int = None):
+        super().__init__(content, Order.HIGH, line, column)
+
+
+class ShiftRight(BitBinary):
+    PATTERN = re.compile(r'^>>')
+
+    def __init__(self, content: str, line: int = None, column: int = None):
+        super().__init__(content, Order.HIGH, line, column)

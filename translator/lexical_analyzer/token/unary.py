@@ -3,8 +3,5 @@ from .ordered import Order
 
 
 class Unary(Operation):
-    def __init__(self, name: str):
-        super().__init__(name, Order.HIGH)
-
-    def is_unary(cls) -> bool:
-        return True
+    def __init__(self, content: str, line: int = None, column: int = None):
+        super().__init__(content, Order.HIGH, line, column)

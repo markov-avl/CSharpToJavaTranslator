@@ -1,13 +1,13 @@
+import re
+
 from .operation import Operation
 from .unary import Unary
 from .binary import Binary
-from .token_type import TokenType
 from .ordered import Order
 
 
 class Arithmetic(Operation):
-    def is_arithmetic(cls) -> bool:
-        return True
+    pass
 
 
 class ArithmeticUnary(Arithmetic, Unary):
@@ -18,10 +18,44 @@ class ArithmeticBinary(Arithmetic, Binary):
     pass
 
 
-TokenType.increment = ArithmeticUnary('++')
-TokenType.decrement = ArithmeticUnary('--')
-TokenType.mul = ArithmeticBinary('*', Order.HIGH)
-TokenType.div = ArithmeticBinary('/', Order.HIGH)
-TokenType.mod = ArithmeticBinary('%', Order.HIGH)
-TokenType.plus = ArithmeticBinary('+', Order.LOW)
-TokenType.minus = ArithmeticBinary('-', Order.LOW)
+class Increment(ArithmeticUnary):
+    PATTERN = re.compile(r'^\+\+')
+
+
+class Decrement(ArithmeticUnary):
+    PATTERN = re.compile(r'^--')
+
+
+class Mul(ArithmeticBinary):
+    PATTERN = re.compile(r'^\*')
+
+    def __init__(self, content: str, line: int = None, column: int = None):
+        super().__init__(content, Order.HIGH, line, column)
+
+
+class Div(ArithmeticBinary):
+    PATTERN = re.compile(r'^/')
+
+    def __init__(self, content: str, line: int = None, column: int = None):
+        super().__init__(content, Order.HIGH, line, column)
+
+
+class Mod(ArithmeticBinary):
+    PATTERN = re.compile(r'^%')
+
+    def __init__(self, content: str, line: int = None, column: int = None):
+        super().__init__(content, Order.HIGH, line, column)
+
+
+class Plus(ArithmeticBinary):
+    PATTERN = re.compile(r'^\+')
+
+    def __init__(self, content: str, line: int = None, column: int = None):
+        super().__init__(content, Order.LOW, line, column)
+
+
+class Minus(ArithmeticBinary):
+    PATTERN = re.compile(r'^-')
+
+    def __init__(self, content: str, line: int = None, column: int = None):
+        super().__init__(content, Order.LOW, line, column)

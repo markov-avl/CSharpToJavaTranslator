@@ -1,12 +1,8 @@
-from .token import Tokenizer, TokenType
+from .token import Token, Tokenizer
 
 
 class Lexer:
-    def _next_one(self, symbol: str, token_type: TokenType, next_symbol: str, next_token_type: TokenType):
-        ...
-
-    def _next_many(self, symbol: str, token_type: TokenType, next_symbol: str, next_token_type: TokenType):
-        ...
-
-    def _eat_whitespaces(self, tokenizer: Tokenizer):
-        pass
+    @staticmethod
+    def tokenize(program_code: str) -> list[Token]:
+        tokenizer = Tokenizer(program_code)
+        return tokenizer.get_tokens()

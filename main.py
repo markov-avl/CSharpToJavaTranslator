@@ -1,5 +1,8 @@
+from translator import translate
+
+
 def main() -> None:
-    pass
+    translate('programs/test.cs', '')
 
 
 if __name__ == '__main__':
