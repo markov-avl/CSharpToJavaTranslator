@@ -10,7 +10,7 @@ from .syntax import Comma, Dot, Apostrophe, Quote, Semicolon, Colon, Backslash
 
 
 class Tokenizer:
-    TOKENS: list[Token] = [
+    _TOKENS: list[Token] = [
         Comma,  # ,
         Apostrophe,  # '
         Quote,  # "
@@ -78,18 +78,15 @@ class Tokenizer:
     def get_tokens(self) -> list[Token]:
         if self._symbol > 0:
             return self._tokens
-        self._go_to_the_next_visible()
-        while True:
+        while self._go_to_the_next_visible():
             if token := self._get_token():
                 self._tokens.append(token)
             else:
                 raise ValueError(f'Unknown token at {self._line} line, {self._column} column')
-            if not self._go_to_the_next_visible():
-                break
         return self._tokens
 
     def _get_token(self) -> Token | None:
-        for token_type in self.TOKENS:
+        for token_type in self._TOKENS:
             if token := token_type.parse(self._program_code, self._symbol):
                 token.line = self._line
                 token.column = self._column
