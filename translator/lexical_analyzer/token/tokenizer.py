@@ -11,9 +11,7 @@ from .syntax import Comma, Dot, Apostrophe, Quote, Semicolon, Colon, Backslash
 
 class Tokenizer:
     TOKENS: list[Token] = [
-        # no order
         Comma,  # ,
-        Dot,  # .
         Apostrophe,  # '
         Quote,  # "
         Semicolon,  # ;
@@ -27,55 +25,45 @@ class Tokenizer:
         RightBrace,  # }
         BitNot,  # ~
         BitXor,  # ^
-        Int,  # -+ INTEGER
         Float,  # -+ FLOAT
+        Int,  # -+ INTEGER
         Identifier,  # IDENTIFIER
+        Dot,  # .
 
-        # ^+
         PlusAssign,  # +=
         Increment,  # ++
         Plus,  # +
 
-        # ^-
         MinusAssign,  # -=
         Decrement,  # --
         Minus,  # -
 
-        # ^*
         MulAssign,  # *=
         Mul,  # *
 
-        # ^/
         DivAssign,  # /=
         Div,  # /
 
-        # ^%
         ModAssign,  # %=
         Mod,  # %
 
-        # ^=
         Eq,  # ==
         Assign,  # =
 
-        # ^>
         ShiftRight,  # >>
         Geq,  # >=
         Greater,  # >
 
-        # ^<
         ShiftLeft,  # <<
         Leq,  # <=
         Lesser,  # <
 
-        # ^&
         LogicalAnd,  # &&
         BitAnd,  # &
 
-        # ^|
         LogicalOr,  # ||
         BitOr,  # |
 
-        # ^!
         Neq,  # !=
         LogicalNot  # !
     ]
@@ -90,7 +78,7 @@ class Tokenizer:
     def get_tokens(self) -> list[Token]:
         if self._symbol > 0:
             return self._tokens
-        self._go_to_the_next_visible(False)
+        self._go_to_the_next_visible()
         while True:
             if token := self._get_token():
                 self._tokens.append(token)
@@ -122,9 +110,7 @@ class Tokenizer:
             else:
                 self._column += 1
 
-    def _go_to_the_next_visible(self, pass_current: bool = True) -> bool:
-        if pass_current:
-            self._go_ahead()
+    def _go_to_the_next_visible(self) -> bool:
         while character := self._get_character():
             if not character.isspace() and character != '\n':
                 return True

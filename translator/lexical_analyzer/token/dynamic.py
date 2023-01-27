@@ -8,11 +8,11 @@ class Dynamic(Token):
 
 
 class Int(Dynamic):
-    PATTERN = re.compile(r'^[+-]?\d+')
+    PATTERN = re.compile(r'^\d+')
 
 
 class Float(Dynamic):
-    PATTERN = re.compile(r'^[+-]?(\d+([.]\d*)?|[.]\d+)')
+    PATTERN = re.compile(r'^(\d+\.\d+|\d+\.|\.\d+)')
 
 
 class Identifier(Dynamic):
