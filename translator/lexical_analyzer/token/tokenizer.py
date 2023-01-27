@@ -93,7 +93,7 @@ class Tokenizer:
                 self._go_ahead(len(token))
                 return token
 
-    def _get_character(self) -> str | None:
+    def _get_current_character(self) -> str | None:
         if self._symbol >= len(self._program_code):
             return
         return self._program_code[self._symbol]
@@ -101,14 +101,14 @@ class Tokenizer:
     def _go_ahead(self, steps: int = 1) -> None:
         for _ in range(steps):
             self._symbol += 1
-            if self._get_character() == '\n':
+            if self._get_current_character() == '\n':
                 self._line += 1
                 self._column = 0
             else:
                 self._column += 1
 
     def _go_to_the_next_visible(self) -> bool:
-        while character := self._get_character():
+        while character := self._get_current_character():
             if not character.isspace() and character != '\n':
                 return True
             self._go_ahead()

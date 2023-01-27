@@ -16,4 +16,4 @@ class Float(Dynamic):
 
 
 class Identifier(Dynamic):
-    PATTERN = re.compile(r'^[a-zA-Z]\w*')
+    PATTERN = re.compile(r'^[a-zA-Z_]\w*')
