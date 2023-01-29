@@ -1,5 +1,3 @@
-import re
-
 from .token import Token
 
 
@@ -8,28 +6,28 @@ class Syntax(Token):
 
 
 class Comma(Syntax):
-    PATTERN = re.compile(r'^,')
+    PATTERN = r','
 
 
 class Dot(Syntax):
-    PATTERN = re.compile(r'^\.')
+    PATTERN = r'\.'
 
 
 class Apostrophe(Syntax):
-    PATTERN = re.compile(r'^\'')
+    PATTERN = r'\''
 
 
 class Quote(Syntax):
-    PATTERN = re.compile(r'^"')
+    PATTERN = r'"'
 
 
 class Semicolon(Syntax):
-    PATTERN = re.compile(r'^;')
+    PATTERN = r';'
 
 
 class Colon(Syntax):
-    PATTERN = re.compile(r'^:')
+    PATTERN = r':'
 
 
 class Backslash(Syntax):
-    PATTERN = re.compile(r'^\\')
+    PATTERN = r'\\'

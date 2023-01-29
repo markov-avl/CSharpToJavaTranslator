@@ -1,5 +1,3 @@
-import re
-
 from .token import Token
 
 
@@ -8,12 +6,12 @@ class Dynamic(Token):
 
 
 class Int(Dynamic):
-    PATTERN = re.compile(r'^\d+')
+    PATTERN = r'\d+'
 
 
 class Float(Dynamic):
-    PATTERN = re.compile(r'^(\d+\.\d+|\d+\.|\.\d+)')
+    PATTERN = r'(\d+\.\d+|\d+\.|\.\d+)'
 
 
 class Identifier(Dynamic):
-    PATTERN = re.compile(r'^[a-zA-Z_]\w*')
+    PATTERN = r'[a-zA-Z_]\w*'

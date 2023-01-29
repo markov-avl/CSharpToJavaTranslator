@@ -1,4 +1,4 @@
-from translator.lexical_analyzer.declaration import Declaration
+from translator.syntactical_analyzer.declaration import Declaration
 
 
 class Program:

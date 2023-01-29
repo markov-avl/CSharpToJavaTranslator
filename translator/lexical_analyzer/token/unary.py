@@ -3,5 +3,5 @@ from .ordered import Order
 
 
 class Unary(Operation):
-    def __init__(self, content: str, line: int = None, column: int = None):
-        super().__init__(content, Order.HIGH, line, column)
+    def __init__(self, value: str, line: int = None, column: int = None):
+        super().__init__(value, Order.HIGH, line, column)

@@ -1,4 +1,4 @@
-from .statement import Statement
+from translator.syntactical_analyzer.statement.statement import Statement
 
 
 class Body:
@@ -14,3 +14,6 @@ class Body:
 
     def add(self, statement: Statement) -> None:
         self._statements.append(statement)
+
+    def to_java(self) -> str:
+        return '\n'.join(statement.to_java() for statement in self._statements)

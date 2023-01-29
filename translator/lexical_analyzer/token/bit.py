@@ -19,39 +19,39 @@ class BitBinary(Bit, Binary):
 
 
 class BitNot(BitUnary):
-    PATTERN = re.compile(r'^~')
+    PATTERN = r'~'
 
 
 class BitAnd(BitBinary):
-    PATTERN = re.compile(r'^&')
+    PATTERN = r'&'
 
-    def __init__(self, content: str, line: int = None, column: int = None):
-        super().__init__(content, Order.HIGH, line, column)
+    def __init__(self, value: str, line: int = None, column: int = None):
+        super().__init__(value, Order.HIGH, line, column)
 
 
 class BitOr(BitBinary):
-    PATTERN = re.compile(r'^\|')
+    PATTERN = r'\|'
 
-    def __init__(self, content: str, line: int = None, column: int = None):
-        super().__init__(content, Order.HIGH, line, column)
+    def __init__(self, value: str, line: int = None, column: int = None):
+        super().__init__(value, Order.HIGH, line, column)
 
 
 class BitXor(BitBinary):
-    PATTERN = re.compile(r'^\^')
+    PATTERN = r'\^'
 
-    def __init__(self, content: str, line: int = None, column: int = None):
-        super().__init__(content, Order.HIGH, line, column)
+    def __init__(self, value: str, line: int = None, column: int = None):
+        super().__init__(value, Order.HIGH, line, column)
 
 
 class ShiftLeft(BitBinary):
-    PATTERN = re.compile(r'^<<')
+    PATTERN = r'<<'
 
-    def __init__(self, content: str, line: int = None, column: int = None):
-        super().__init__(content, Order.HIGH, line, column)
+    def __init__(self, value: str, line: int = None, column: int = None):
+        super().__init__(value, Order.HIGH, line, column)
 
 
 class ShiftRight(BitBinary):
-    PATTERN = re.compile(r'^>>')
+    PATTERN = r'>>'
 
-    def __init__(self, content: str, line: int = None, column: int = None):
-        super().__init__(content, Order.HIGH, line, column)
+    def __init__(self, value: str, line: int = None, column: int = None):
+        super().__init__(value, Order.HIGH, line, column)

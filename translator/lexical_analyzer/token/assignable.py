@@ -8,24 +8,24 @@ class Assignable(Token):
 
 
 class Assign(Assignable):
-    PATTERN = re.compile(r'^=')
+    PATTERN = r'='
 
 
 class PlusAssign(Assignable):
-    PATTERN = re.compile(r'^\+=')
+    PATTERN = r'\+='
 
 
 class MinusAssign(Assignable):
-    PATTERN = re.compile(r'^-=')
+    PATTERN = r'-='
 
 
 class MulAssign(Assignable):
-    PATTERN = re.compile(r'^\*=')
+    PATTERN = r'\*='
 
 
 class DivAssign(Assignable):
-    PATTERN = re.compile(r'^/=')
+    PATTERN = r'/='
 
 
 class ModAssign(Assignable):
-    PATTERN = re.compile(r'^%=')
+    PATTERN = r'%='

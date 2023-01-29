@@ -25,8 +25,8 @@ Order.LOW = Order(3)
 
 
 class Ordered(Token):
-    def __init__(self, content: str, order: Order, line: int = None, column: int = None):
-        super().__init__(content, line, column)
+    def __init__(self, value: str, order: Order, line: int = None, column: int = None):
+        super().__init__(value, line, column)
         self._order = order
 
     @property

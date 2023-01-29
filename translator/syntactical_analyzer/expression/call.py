@@ -3,6 +3,7 @@ from .expression import Expression
 
 class Call(Expression):
     def __init__(self, name: str, arguments: list[Expression]):
+        super().__init__()
         self._name = name
         self._arguments = arguments
 
@@ -14,8 +15,6 @@ class Call(Expression):
     def arguments(self) -> list[Expression]:
         return self._arguments
 
-    def __len__(self) -> int:
-        return len(self._name)
-
-    def __str__(self) -> str:
-        return self._name
+    def to_java(self) -> str:
+        arguments = ', '.join(argument.to_java() for argument in self._arguments)
+        return f'{self._name}({arguments})'

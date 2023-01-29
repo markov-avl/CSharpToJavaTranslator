@@ -1,5 +1,5 @@
 from .statement import Statement
-from translator.lexical_analyzer.expression import Expression
+from translator.syntactical_analyzer.expression import Expression
 
 
 class Return(Statement):
@@ -9,3 +9,6 @@ class Return(Statement):
     @property
     def expression(self):
         return self._expression
+
+    def to_java(self) -> str:
+        return f'return {self._expression.to_java()};'

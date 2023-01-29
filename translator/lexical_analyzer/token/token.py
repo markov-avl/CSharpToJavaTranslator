@@ -4,18 +4,22 @@ import re
 
 
 class Token(ABC):
-    PATTERN: re.Pattern
+    PATTERN: str
 
-    def __init__(self, content: str, line: int = None, column: int = None):
-        self._content = content
+    def __init__(self, value: str, line: int = None, column: int = None):
+        self._value = value
         self._line = line
         self._column = column
 
     def __str__(self) -> str:
-        return self._content
+        return f'TOKEN_{self.__class__.__name__}'
 
     def __len__(self) -> int:
-        return len(self._content)
+        return len(self._value)
+
+    @property
+    def value(self) -> str:
+        return self._value
 
     @property
     def line(self) -> int | None:
@@ -33,7 +37,11 @@ class Token(ABC):
     def column(self, column: int) -> None:
         self._column = column
 
+    @property
+    def position(self) -> str:
+        return f'{self._line}:{self._column}'
+
     @classmethod
     def parse(cls, program_code: str, symbol: int) -> Token | None:
-        if match := re.search(cls.PATTERN, program_code[symbol:]):
+        if match := re.search(rf'^{cls.PATTERN}', program_code[symbol:]):
             return cls(match.group(0))

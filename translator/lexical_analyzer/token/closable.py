@@ -8,24 +8,24 @@ class Closable(Token):
 
 
 class LeftParen(Closable):
-    PATTERN = re.compile(r'^\(')
+    PATTERN = r'\('
 
 
 class RightParen(Closable):
-    PATTERN = re.compile(r'^\)')
+    PATTERN = r'\)'
 
 
 class LeftBracket(Closable):
-    PATTERN = re.compile(r'^\[')
+    PATTERN = r'\['
 
 
 class RightBracket(Closable):
-    PATTERN = re.compile(r'^]')
+    PATTERN = r']'
 
 
 class LeftBrace(Closable):
-    PATTERN = re.compile(r'^\{')
+    PATTERN = r'\{'
 
 
 class RightBrace(Closable):
-    PATTERN = re.compile(r'^}')
+    PATTERN = r'}'

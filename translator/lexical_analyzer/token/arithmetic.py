@@ -1,5 +1,3 @@
-import re
-
 from .operation import Operation
 from .unary import Unary
 from .binary import Binary
@@ -19,43 +17,43 @@ class ArithmeticBinary(Arithmetic, Binary):
 
 
 class Increment(ArithmeticUnary):
-    PATTERN = re.compile(r'^\+\+')
+    PATTERN = r'\+\+'
 
 
 class Decrement(ArithmeticUnary):
-    PATTERN = re.compile(r'^--')
+    PATTERN = r'--'
 
 
 class Mul(ArithmeticBinary):
-    PATTERN = re.compile(r'^\*')
+    PATTERN = r'\*'
 
-    def __init__(self, content: str, line: int = None, column: int = None):
-        super().__init__(content, Order.HIGH, line, column)
+    def __init__(self, value: str, line: int = None, column: int = None):
+        super().__init__(value, Order.HIGH, line, column)
 
 
 class Div(ArithmeticBinary):
-    PATTERN = re.compile(r'^/')
+    PATTERN = r'/'
 
-    def __init__(self, content: str, line: int = None, column: int = None):
-        super().__init__(content, Order.HIGH, line, column)
+    def __init__(self, value: str, line: int = None, column: int = None):
+        super().__init__(value, Order.HIGH, line, column)
 
 
 class Mod(ArithmeticBinary):
-    PATTERN = re.compile(r'^%')
+    PATTERN = r'%'
 
-    def __init__(self, content: str, line: int = None, column: int = None):
-        super().__init__(content, Order.HIGH, line, column)
+    def __init__(self, value: str, line: int = None, column: int = None):
+        super().__init__(value, Order.HIGH, line, column)
 
 
 class Plus(ArithmeticBinary):
-    PATTERN = re.compile(r'^\+')
+    PATTERN = r'\+'
 
-    def __init__(self, content: str, line: int = None, column: int = None):
-        super().__init__(content, Order.LOW, line, column)
+    def __init__(self, value: str, line: int = None, column: int = None):
+        super().__init__(value, Order.LOW, line, column)
 
 
 class Minus(ArithmeticBinary):
-    PATTERN = re.compile(r'^-')
+    PATTERN = r'-'
 
-    def __init__(self, content: str, line: int = None, column: int = None):
-        super().__init__(content, Order.LOW, line, column)
+    def __init__(self, value: str, line: int = None, column: int = None):
+        super().__init__(value, Order.LOW, line, column)

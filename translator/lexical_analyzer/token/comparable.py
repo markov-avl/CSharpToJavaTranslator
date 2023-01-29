@@ -9,42 +9,42 @@ class Comparable(LogicalBinary):
 
 
 class Greater(Comparable):
-    PATTERN = re.compile(r'^>')
+    PATTERN = r'>'
 
-    def __init__(self, content: str, line: int = None, column: int = None):
-        super().__init__(content, Order.HIGH, line, column)
+    def __init__(self, value: str, line: int = None, column: int = None):
+        super().__init__(value, Order.HIGH, line, column)
 
 
 class Lesser(Comparable):
-    PATTERN = re.compile(r'^<')
+    PATTERN = r'<'
 
-    def __init__(self, content: str, line: int = None, column: int = None):
-        super().__init__(content, Order.HIGH, line, column)
+    def __init__(self, value: str, line: int = None, column: int = None):
+        super().__init__(value, Order.HIGH, line, column)
 
 
 class Eq(Comparable):
-    PATTERN = re.compile(r'^==')
+    PATTERN = r'=='
 
-    def __init__(self, content: str, line: int = None, column: int = None):
-        super().__init__(content, Order.HIGH, line, column)
+    def __init__(self, value: str, line: int = None, column: int = None):
+        super().__init__(value, Order.HIGH, line, column)
 
 
 class Geq(Comparable):
-    PATTERN = re.compile(r'^>=')
+    PATTERN = r'>='
 
-    def __init__(self, content: str, line: int = None, column: int = None):
-        super().__init__(content, Order.HIGH, line, column)
+    def __init__(self, value: str, line: int = None, column: int = None):
+        super().__init__(value, Order.HIGH, line, column)
 
 
 class Leq(Comparable):
-    PATTERN = re.compile(r'^<=')
+    PATTERN = r'<='
 
-    def __init__(self, content: str, line: int = None, column: int = None):
-        super().__init__(content, Order.HIGH, line, column)
+    def __init__(self, value: str, line: int = None, column: int = None):
+        super().__init__(value, Order.HIGH, line, column)
 
 
 class Neq(Comparable):
-    PATTERN = re.compile(r'^!=')
+    PATTERN = r'!='
 
-    def __init__(self, content: str, line: int = None, column: int = None):
-        super().__init__(content, Order.HIGH, line, column)
+    def __init__(self, value: str, line: int = None, column: int = None):
+        super().__init__(value, Order.HIGH, line, column)
