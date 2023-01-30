@@ -17,6 +17,9 @@ class Token(ABC):
     def __len__(self) -> int:
         return len(self._value)
 
+    def __eq__(self, other):
+        return self.value == other.value and self.line == other.line and self.column == other.column
+
     @property
     def value(self) -> str:
         return self._value
