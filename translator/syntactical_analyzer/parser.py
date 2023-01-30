@@ -1,5 +1,6 @@
 from . import declaration
 from . import statement
+from .body import Body
 from translator.lexical_analyzer import token
 
 
@@ -22,23 +23,7 @@ class Parser:
                 self._declarations.append(self._parse_import_using_declaration())
             else:
                 raise SyntaxError(f'Expected class or using declaration at {current_token.position}')
-
-    def _parse_braces(self, parser: ()) -> list[any]:
-        container = []
-        opening_brace_token = self._get_current_token()
-
-        if not isinstance(opening_brace_token, token.LeftBrace):
-            raise SyntaxError(f'Expected openning brace at {opening_brace_token.position}')
-
-        self._next_token()
-        while current_token := self._get_current_token():
-            if isinstance(current_token, token.RightBrace):
-                self._next_token()
-                return container
-            container.append(parser())
             self._next_token()
-
-        raise SyntaxError(f'Expected closing brace for brace at {opening_brace_token.position}, but not found')
 
     def _parse_class(self) -> declaration.Declaration:
         self._next_token()
@@ -60,25 +45,24 @@ class Parser:
         self._next_token()
         while current_token := self._get_current_token():
             if isinstance(current_token, token.RightBrace):
-                self._next_token()
                 return attributes, methods
-            methods.append(self._parse_function())
+            methods.append(self._parse_method())
             self._next_token()
 
         raise SyntaxError(f'Expected closing brace for brace at {opening_brace_token.position}, but not found')
 
-    def _parse_function(self) -> declaration.Method:
+    def _parse_method(self) -> declaration.Method:
         access_modifier = self._parse_access_modifier()
         self._next_token()
         return_type = self._parse_type()
         self._next_token()
         name = self._parse_name()
         self._next_token()
-        params = self._parse_function_params()
+        params = self._parse_params()
         self._next_token()
-        statements = self._parse_statements()
+        body = self._parse_body()
 
-        return declaration.Method(name, access_modifier, params, statements, return_type)
+        return declaration.Method(access_modifier, return_type, name, params, body)
 
     def _parse_access_modifier(self) -> declaration.AccessModifier:
         access_modifier_token = self._get_current_token()
@@ -98,8 +82,8 @@ class Parser:
             raise SyntaxError(f'Expected name identifier at {name_token.position}')
         return name_token.value
 
-    def _parse_function_params(self) -> list[declaration.Param]:
-        function_params: list[declaration.Param] = []
+    def _parse_params(self) -> list[declaration.Param]:
+        params: list[declaration.Param] = []
         left_paren_token = self._get_current_token()
 
         if not isinstance(left_paren_token, token.LeftParen):
@@ -108,10 +92,9 @@ class Parser:
         self._next_token()
         while current_token := self._get_current_token():
             if isinstance(current_token, token.RightParen):
-                self._next_token()
-                return function_params
+                return params
 
-            if function_params and isinstance(self._get_current_token(), token.Comma):
+            if params and isinstance(self._get_current_token(), token.Comma):
                 self._next_token()
 
             type_ = self._parse_type()
@@ -119,12 +102,25 @@ class Parser:
             name = self._parse_name()
             self._next_token()
 
-            function_params.append(declaration.Param(type_, name))
+            params.append(declaration.Param(type_, name))
 
         raise SyntaxError(f'Expected closing paren for paren at {left_paren_token.position}, but not found')
 
-    def _parse_statements(self) -> list[statement.Statement]:
-        return self._parse_braces(self._parse_statement)
+    def _parse_body(self) -> list[statement.Statement]:
+        body = Body()
+        opening_brace_token = self._get_current_token()
+
+        if not isinstance(opening_brace_token, token.LeftBrace):
+            raise SyntaxError(f'Expected openning brace at {opening_brace_token.position}')
+
+        self._next_token()
+        while current_token := self._get_current_token():
+            if isinstance(current_token, token.RightBrace):
+                return body
+            body.add(self._parse_statement())
+            self._next_token()
+
+        raise SyntaxError(f'Expected closing brace for brace at {opening_brace_token.position}, but not found')
 
     def _parse_statement(self) -> statement.Statement:
         ...

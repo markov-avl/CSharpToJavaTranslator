@@ -33,11 +33,11 @@ class Method(Declaration):
         return self._params
 
     @property
-    def statements(self) -> list[Statement]:
-        return self._statements
+    def body(self) -> Body:
+        return self._body
 
     def to_java(self) -> str:
         access_modifier = self._access_modifier.to_java()
         params = ', '.join(param.to_java() for param in self._params)
-        body = '\n'.join(statement.to_java() for statement in self._statements)
+        body = self._body.to_java()
         return f'{access_modifier} {self._return_type} {self._name}({params}) {{\n{body}\n}}'
