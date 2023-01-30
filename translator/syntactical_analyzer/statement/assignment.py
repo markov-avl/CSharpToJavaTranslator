@@ -3,7 +3,7 @@ from translator.lexical_analyzer import token
 from translator.syntactical_analyzer.expression import Expression
 
 
-class Assign(Statement):
+class Assignment(Statement):
     def __init__(self, name: str, token_type: token.Assignable, right: Expression):
         self._name = name
         self._token_type = token_type

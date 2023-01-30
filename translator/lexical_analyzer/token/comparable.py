@@ -1,5 +1,3 @@
-import re
-
 from .logical import LogicalBinary
 from .ordered import Order
 

@@ -26,32 +26,32 @@ class BitAnd(BitBinary):
     PATTERN = r'&'
 
     def __init__(self, value: str, line: int = None, column: int = None):
-        super().__init__(value, Order.HIGH, line, column)
+        super().__init__(value, Order.MEDIUM, line, column)
 
 
 class BitOr(BitBinary):
     PATTERN = r'\|'
 
     def __init__(self, value: str, line: int = None, column: int = None):
-        super().__init__(value, Order.HIGH, line, column)
+        super().__init__(value, Order.MEDIUM, line, column)
 
 
 class BitXor(BitBinary):
     PATTERN = r'\^'
 
     def __init__(self, value: str, line: int = None, column: int = None):
-        super().__init__(value, Order.HIGH, line, column)
+        super().__init__(value, Order.MEDIUM, line, column)
 
 
 class ShiftLeft(BitBinary):
     PATTERN = r'<<'
 
     def __init__(self, value: str, line: int = None, column: int = None):
-        super().__init__(value, Order.HIGH, line, column)
+        super().__init__(value, Order.MEDIUM, line, column)
 
 
 class ShiftRight(BitBinary):
     PATTERN = r'>>'
 
     def __init__(self, value: str, line: int = None, column: int = None):
-        super().__init__(value, Order.HIGH, line, column)
+        super().__init__(value, Order.MEDIUM, line, column)

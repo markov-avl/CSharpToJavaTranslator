@@ -13,5 +13,6 @@ def translate(source: str, out: str) -> None:
     parser = Parser(tokens)
     declarations = parser.parse()
 
+    print()
     for declaration in declarations:
         print(declaration.to_java())

@@ -28,21 +28,21 @@ class Mul(ArithmeticBinary):
     PATTERN = r'\*'
 
     def __init__(self, value: str, line: int = None, column: int = None):
-        super().__init__(value, Order.HIGH, line, column)
+        super().__init__(value, Order.MEDIUM, line, column)
 
 
 class Div(ArithmeticBinary):
     PATTERN = r'/'
 
     def __init__(self, value: str, line: int = None, column: int = None):
-        super().__init__(value, Order.HIGH, line, column)
+        super().__init__(value, Order.MEDIUM, line, column)
 
 
 class Mod(ArithmeticBinary):
     PATTERN = r'%'
 
     def __init__(self, value: str, line: int = None, column: int = None):
-        super().__init__(value, Order.HIGH, line, column)
+        super().__init__(value, Order.MEDIUM, line, column)
 
 
 class Plus(ArithmeticBinary):

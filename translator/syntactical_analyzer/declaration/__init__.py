@@ -5,3 +5,4 @@ from .class_ import Class
 from .import_using import ImportUsing
 from .param import Param
 from .access_modifier import AccessModifier
+from .variable import Variable

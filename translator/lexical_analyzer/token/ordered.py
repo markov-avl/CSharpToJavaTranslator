@@ -4,6 +4,7 @@ from .token import Token
 class Order:
     __slots__ = [
         '_order',
+        'HIGHEST',
         'HIGH',
         'MEDIUM',
         'LOW'
@@ -19,6 +20,7 @@ class Order:
         return self._order
 
 
+Order.HIGHEST = Order(0)
 Order.HIGH = Order(1)
 Order.MEDIUM = Order(2)
 Order.LOW = Order(3)
