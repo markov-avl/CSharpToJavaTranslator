@@ -9,6 +9,14 @@ class Binary(Expression):
         self._left = left
         self._right = right
 
+    def __eq__(self, other):
+        if not isinstance(other, Binary):
+            return False
+        return self._value == other.value and \
+            self._operation == other.operation and \
+            self._left == other.left and \
+            self._right == other.right
+
     @property
     def left(self) -> Expression:
         return self._left

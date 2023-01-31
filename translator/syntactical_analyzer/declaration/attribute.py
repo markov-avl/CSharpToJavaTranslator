@@ -12,6 +12,14 @@ class Attribute(Declaration):
         self._type = type_
         self._expression = expression
 
+    def __eq__(self, other):
+        if not isinstance(other, Attribute):
+            return False
+        return self._name == other.name and \
+            self._access_modifier == other.access_modifier and \
+            self._type == other.type and \
+            self._expression == other.expression
+
     @property
     def access_modifier(self) -> AccessModifier:
         return self._access_modifier

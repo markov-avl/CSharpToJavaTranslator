@@ -13,6 +13,15 @@ class Body(Mapped):
         for statement in self._statements:
             yield statement
 
+    def __eq__(self, other):
+        if not isinstance(other, Body):
+            return False
+        return self._statements == other.statements
+
+    @property
+    def statements(self) -> list[Statement]:
+        return self._statements
+
     def is_empty(self) -> bool:
         return not self._statements
 

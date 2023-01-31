@@ -9,6 +9,14 @@ class Unary(Expression):
         self._expression = expression
         self._pre = pre
 
+    def __eq__(self, other):
+        if not isinstance(other, Unary):
+            return False
+        return self._value == other.value and \
+            self._operation == other.operation and \
+            self._expression == other.expression and \
+            self._pre == other.is_prefix()
+
     @property
     def operation(self) -> token.Unary:
         return self._operation

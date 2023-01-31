@@ -10,6 +10,13 @@ class Variable(Declaration):
         self._type = type_
         self._expression = expression
 
+    def __eq__(self, other):
+        if not isinstance(other, Variable):
+            return False
+        return self._name == other.name and \
+            self._type == other.type and \
+            self._expression == other.expression
+
     @property
     def type(self) -> str:
         return self._type

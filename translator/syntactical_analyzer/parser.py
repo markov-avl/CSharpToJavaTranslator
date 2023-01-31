@@ -3,6 +3,7 @@ from . import statement
 from . import expression
 from .body import Body
 from translator.lexical_analyzer import token
+from .program import Program
 
 
 class Parser:
@@ -11,10 +12,10 @@ class Parser:
         self._token_index = 0
         self._declarations: list[declaration.Declaration] = []
 
-    def parse(self) -> list[declaration.Declaration]:
+    def parse(self) -> Program:
         if self._token_index == 0:
             self._parse_program()
-        return self._declarations
+        return Program(self._declarations)
 
     def _parse_program(self) -> None:
         while current_token := self._get_current_token():

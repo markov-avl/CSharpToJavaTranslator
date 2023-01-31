@@ -7,6 +7,13 @@ class Call(Expression):
         self._name = name
         self._arguments = arguments
 
+    def __eq__(self, other):
+        if not isinstance(other, Call):
+            return False
+        return self._value == other.value and \
+            self._name == other.name and \
+            self._arguments == other.arguments
+
     @property
     def name(self) -> str:
         return self._name

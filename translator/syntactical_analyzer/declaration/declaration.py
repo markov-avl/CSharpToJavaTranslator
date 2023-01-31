@@ -13,6 +13,11 @@ class Declaration(Statement, ABC):
     def __str__(self) -> str:
         return f'DECLARATION_{self.__class__.__name__}'
 
+    def __eq__(self, other):
+        if not isinstance(other, Declaration):
+            return False
+        return self._name == other.name
+
     @property
     def name(self) -> str:
         return self._name

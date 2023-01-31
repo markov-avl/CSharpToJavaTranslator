@@ -8,6 +8,11 @@ class Expression(Statement):
     def __init__(self, expression_: expression.Expression):
         self._expression = expression_
 
+    def __eq__(self, other):
+        if not isinstance(other, Expression):
+            return False
+        return self._expression == other.expression
+
     @property
     def expression(self) -> expression:
         return self._expression

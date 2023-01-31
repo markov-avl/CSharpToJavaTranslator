@@ -11,6 +11,13 @@ class Assignment(Statement):
         self._token_type = token_type
         self._right = right
 
+    def __eq__(self, other):
+        if not isinstance(other, Assignment):
+            return False
+        return self._name == other.name and \
+            self._token_type == other.token_type and \
+            self._right == other.right
+
     @property
     def name(self) -> str:
         return self._name

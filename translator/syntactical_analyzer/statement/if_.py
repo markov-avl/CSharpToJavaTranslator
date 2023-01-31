@@ -11,6 +11,12 @@ class If(Statement):
         self._if = if_
         self._else = else_
 
+    def __eq__(self, other):
+        if not isinstance(other, If):
+            return False
+        return self._if == other.if_ and \
+            self._else == other.else_
+
     @property
     def if_(self) -> Conditioned:
         return self._if

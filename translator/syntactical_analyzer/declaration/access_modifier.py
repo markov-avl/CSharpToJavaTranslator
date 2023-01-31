@@ -15,6 +15,11 @@ class AccessModifier:
     def __str__(self) -> str:
         return self._name
 
+    def __eq__(self, other):
+        if not isinstance(other, AccessModifier):
+            return False
+        return self._name == other.name
+
     @property
     def name(self) -> str:
         return self._name

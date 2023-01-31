@@ -6,6 +6,12 @@ class Paren(Expression):
         super().__init__()
         self._expression = expression
 
+    def __eq__(self, other):
+        if not isinstance(other, Paren):
+            return False
+        return self._value == other.value and \
+            self._expression == other.expression
+
     @property
     def expression(self) -> Expression:
         return self._expression

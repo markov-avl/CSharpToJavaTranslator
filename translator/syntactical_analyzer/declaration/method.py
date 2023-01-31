@@ -1,7 +1,6 @@
 from .declaration import Declaration
 from .access_modifier import AccessModifier
 from .param import Param
-from translator.syntactical_analyzer.statement import Statement
 from translator.syntactical_analyzer.body import Body
 
 
@@ -19,6 +18,15 @@ class Method(Declaration):
         self._return_type = return_type
         self._params = params
         self._body = body
+
+    def __eq__(self, other):
+        if not isinstance(other, Method):
+            return False
+        return self._name == other.name and \
+            self._access_modifier == other.access_modifier and \
+            self._return_type == other.return_type and \
+            self._params == other._params and \
+            self._body == other.body
 
     @property
     def access_modifier(self) -> AccessModifier:

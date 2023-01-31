@@ -3,7 +3,7 @@ from translator.lexical_analyzer.lexer import Lexer
 from translator.lexical_analyzer import token
 
 
-class MyTestCase(unittest.TestCase):
+class LexicalAnalyzerTestCase(unittest.TestCase):
     def test_first_block(self):
         str = "class Test {\n int l = [] \n int a = 1;" \
                 "\n int b = 1.0; \n float c = a^b; \n Console.WriteLine('tests', c, \"check\")" \

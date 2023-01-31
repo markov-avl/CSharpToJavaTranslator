@@ -3,6 +3,12 @@ class Param:
         self._type = type_
         self._name = name
 
+    def __eq__(self, other):
+        if not isinstance(other, Param):
+            return False
+        return self._type == other.type and \
+            self._name == other.name
+
     @property
     def type(self) -> str:
         return self._type

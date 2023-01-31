@@ -10,6 +10,12 @@ class While(Conditioned):
     def __init__(self, condition: Expression, body: Body | Statement):
         super().__init__(condition, body)
 
+    def __eq__(self, other):
+        if not isinstance(other, While):
+            return False
+        return self._condition == other.condition and \
+            self._body == other.body
+
     def to_java(self, indent: int = 0) -> str:
         return self._indented(
             indent,

@@ -10,6 +10,12 @@ class Conditioned(Statement):
         self._condition = condition
         self._body = body
 
+    def __eq__(self, other):
+        if not isinstance(other, Conditioned):
+            return False
+        return self._condition == other.condition and \
+            self._body == other.body
+
     @property
     def condition(self) -> Expression:
         return self._condition

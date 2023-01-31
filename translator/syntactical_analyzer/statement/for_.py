@@ -12,6 +12,14 @@ class For(Statement):
         self._condition = condition
         self._step = step
 
+    def __eq__(self, other):
+        if not isinstance(other, For):
+            return False
+        return self._body == other.body and \
+            self._init == other.init and \
+            self._condition == other.condition and \
+            self._step == other.step
+
     @property
     def body(self) -> Body:
         return self._body

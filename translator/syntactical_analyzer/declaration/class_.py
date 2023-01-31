@@ -11,6 +11,12 @@ class Class(Declaration):
         self._attributes = attributes if attributes else []
         self._methods = methods if methods else []
 
+    def __eq__(self, other):
+        if not isinstance(other, Class):
+            return False
+        return self._attributes == other.attributes and \
+            self._methods == other.methods
+
     @property
     def attributes(self) -> list[Attribute]:
         return self._attributes
