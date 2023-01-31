@@ -24,7 +24,7 @@ class Attribute(Declaration):
     def expression(self) -> Expression | None:
         return self._expression
 
-    def to_java(self) -> str:
+    def to_java(self, indent: int = 0) -> str:
         access_modifier = self._access_modifier.to_java()
         assignment = f' = {self._expression.to_java()}' if self._expression else ''
         return f'{access_modifier} {self._type} {self._name}{assignment};'

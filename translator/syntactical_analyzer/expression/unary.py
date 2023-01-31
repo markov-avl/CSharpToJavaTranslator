@@ -20,6 +20,6 @@ class Unary(Expression):
     def is_prefix(self) -> bool:
         return self._pre
 
-    def to_java(self) -> str:
+    def to_java(self, indent: int = 0) -> str:
         return f'{self._operation.value}{self._expression.to_java()}' if self._pre else \
             f'{self._expression.to_java()}{self._operation.value}'

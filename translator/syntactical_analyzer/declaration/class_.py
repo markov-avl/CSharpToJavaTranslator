@@ -25,8 +25,9 @@ class Class(Declaration):
     def add_method(self, method: Method) -> None:
         self._methods.append(method)
 
-    def to_java(self) -> str:
-        attributes = '\n'.join(attribute.to_java() for attribute in self._attributes)
-        methods = '\n\n'.join(method.to_java() for method in self._methods)
+    def to_java(self, indent: int = 0) -> str:
+        indent += 1
+        attributes = '\n'.join(self._indented(indent, attribute.to_java(indent)) for attribute in self._attributes)
+        methods = f'\n\n'.join(self._indented(indent, method.to_java(indent)) for method in self._methods)
         body = '\n\n'.join(sequence for sequence in (attributes, methods) if sequence)
         return f'{self.KEYWORD} {self._name} {{\n{body}\n}}'

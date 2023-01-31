@@ -27,7 +27,7 @@ class AccessModifier:
             AccessModifier.private
         )), None)
 
-    def to_java(self) -> str:
+    def to_java(self, indent: int = 0) -> str:
         return self._name
 
 

@@ -36,8 +36,8 @@ class Method(Declaration):
     def body(self) -> Body:
         return self._body
 
-    def to_java(self) -> str:
+    def to_java(self, indent: int = 0) -> str:
         access_modifier = self._access_modifier.to_java()
         params = ', '.join(param.to_java() for param in self._params)
-        body = self._body.to_java()
-        return f'{access_modifier} {self._return_type} {self._name}({params}) {{\n{body}\n}}'
+        body = self._body.to_java(indent + 1)
+        return f'{access_modifier} {self._return_type} {self._name}({params}) {{\n{body}\n{self._indented(indent)}}}'

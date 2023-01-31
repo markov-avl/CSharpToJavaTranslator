@@ -15,6 +15,6 @@ class Call(Expression):
     def arguments(self) -> list[Expression]:
         return self._arguments
 
-    def to_java(self) -> str:
+    def to_java(self, indent: int = 0) -> str:
         arguments = ', '.join(argument.to_java() for argument in self._arguments)
         return f'{self._name}({arguments})'

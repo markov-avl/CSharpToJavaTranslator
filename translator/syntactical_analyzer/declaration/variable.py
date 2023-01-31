@@ -18,6 +18,6 @@ class Variable(Declaration):
     def expression(self) -> Expression | None:
         return self._expression
 
-    def to_java(self) -> str:
+    def to_java(self, indent: int = 0) -> str:
         assignment = f' = {self._expression.to_java()}' if self._expression else ''
-        return f'{self._type} {self._name}{assignment};'
+        return self._indented(indent, f'{self._type} {self._name}{assignment};')

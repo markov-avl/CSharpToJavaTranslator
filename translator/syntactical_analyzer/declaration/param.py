@@ -11,5 +11,5 @@ class Param:
     def name(self) -> str:
         return self._name
 
-    def to_java(self) -> str:
+    def to_java(self, indent: int = 0) -> str:
         return f'{self._type} {self._name}'

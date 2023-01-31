@@ -2,7 +2,7 @@ from .expression import Expression
 
 
 class Atomic(Expression):
-    def to_java(self) -> str:
+    def to_java(self, indent: int = 0) -> str:
         return self._value
 
     @classmethod

@@ -21,5 +21,5 @@ class Binary(Expression):
     def right(self) -> Expression:
         return self._right
 
-    def to_java(self) -> str:
+    def to_java(self, indent: int = 0) -> str:
         return f'{self._left.to_java()} {self._operation.value} {self._right.to_java()}'

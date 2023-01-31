@@ -10,5 +10,5 @@ class Paren(Expression):
     def expression(self) -> Expression:
         return self._expression
 
-    def to_java(self) -> str:
+    def to_java(self, indent: int = 0) -> str:
         return f'({self._expression.to_java()})'

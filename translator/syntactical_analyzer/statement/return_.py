@@ -3,12 +3,15 @@ from translator.syntactical_analyzer.expression import Expression
 
 
 class Return(Statement):
-    def __init__(self, expression: Expression):
+    KEYWORD = 'return'
+
+    def __init__(self, expression: Expression | None):
         self._expression = expression
 
     @property
-    def expression(self):
+    def expression(self) -> Expression | None:
         return self._expression
 
-    def to_java(self) -> str:
-        return f'return {self._expression.to_java()};'
+    def to_java(self, indent: int = 0) -> str:
+        expr = f' {self._expression.to_java()}' if self._expression else ''
+        return self._indented(indent, f'{self.KEYWORD}{expr};')

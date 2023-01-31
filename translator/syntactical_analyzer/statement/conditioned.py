@@ -1,23 +1,22 @@
-from abc import ABC
-
 from .statement import Statement
 from translator.syntactical_analyzer.body import Body
 from translator.syntactical_analyzer.expression import Expression
 
 
-class Conditioned(Statement, ABC):
-    def __init__(self, condition: Expression, body: Body, pre: bool = True):
+class Conditioned(Statement):
+    KEYWORD = None
+
+    def __init__(self, condition: Expression, body: Body | Statement):
         self._condition = condition
         self._body = body
-        self._pre = pre
 
     @property
-    def condition(self) -> Expression | None:
+    def condition(self) -> Expression:
         return self._condition
 
     @property
-    def body(self) -> Body:
+    def body(self) -> Body | Statement:
         return self._body
 
-    def is_preconditioned(self) -> bool:
-        return self._pre
+    def to_java(self, indent: int = 0) -> str:
+        raise NotImplementedError('This method could not be implemented')

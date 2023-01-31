@@ -4,6 +4,8 @@ from translator.syntactical_analyzer.expression import Expression
 
 
 class Assignment(Statement):
+    KEYWORD = None
+
     def __init__(self, name: str, token_type: token.Assignable, right: Expression):
         self._name = name
         self._token_type = token_type
@@ -21,5 +23,5 @@ class Assignment(Statement):
     def right(self) -> Expression:
         return self._right
 
-    def to_java(self) -> str:
-        return f'{self._name} {self._token_type.value} {self._right.to_java()}'
+    def to_java(self, indent: int = 0) -> str:
+        return self._indented(indent, f'{self._name} {self._token_type.value} {self._right.to_java()};')
