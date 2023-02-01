@@ -86,7 +86,7 @@ class LexicalAnalyzer:
             if token := self._get_token():
                 self._tokens.append(token)
             else:
-                raise ValueError(f'Unknown token at {self._line}:{self._column}')
+                raise SyntaxError(f'Unknown token at {self._line}:{self._column}')
 
         return self._tokens
 

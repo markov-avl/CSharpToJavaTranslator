@@ -210,6 +210,18 @@ class LexicalAnalyzerTestCase(unittest.TestCase):
         result = self.lexical_analyzer.tokenize(source)
         self.assertListEqual(tokens, result)
 
+    def test_no_tokens(self):
+        source = ""
+        tokens = []
+        result = self.lexical_analyzer.tokenize(source)
+        self.assertListEqual(tokens, result)
+
+    def test_unknown_token(self):
+        source = "$a = 1"
+        with self.assertRaises(SyntaxError) as e:
+            self.lexical_analyzer.tokenize(source)
+        self.assertEqual(e.exception.msg, 'Unknown token at 1:1')
+
 
 if __name__ == '__main__':
     unittest.main()
