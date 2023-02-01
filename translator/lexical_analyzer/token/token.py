@@ -18,7 +18,11 @@ class Token(ABC):
         return len(self._value)
 
     def __eq__(self, other):
-        return self.value == other.value and self.line == other.line and self.column == other.column
+        if not isinstance(other, Token):
+            return False
+        return self._value == other.value and \
+            self._line == other.line and \
+            self._column == other.column
 
     @property
     def value(self) -> str:

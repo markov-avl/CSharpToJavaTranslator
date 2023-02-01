@@ -69,7 +69,7 @@ class SyntacticalAnalyzer:
         return access_modifier
 
     def _parse_type(self) -> str:
-        type_ = self._parse_name(True)
+        type_ = self._parse_name()
 
         while isinstance(opening_bracket := self._with_next_token(self._get_current_token), token.LeftBracket):
             if not isinstance(closing_bracket := self._with_next_token(self._get_current_token), token.RightBracket):
@@ -80,19 +80,10 @@ class SyntacticalAnalyzer:
 
         return type_
 
-    def _parse_name(self, chained: bool = False) -> str:
+    def _parse_name(self) -> str:
         if not isinstance(name_token := self._get_current_token(), token.Identifier):
             raise SyntaxError(f'Expected name identifier at {name_token.position}')
-        name = name_token.value
-
-        while isinstance(dot := self._with_next_token(self._get_current_token), token.Dot) and chained:
-            if not isinstance(identifier := self._with_next_token(self._get_current_token), token.Identifier):
-                raise SyntaxError(f'Expected chained identifier at {identifier.position}')
-            name += f'{dot.value}{identifier.value}'
-
-        self._token_index -= 1
-
-        return name
+        return name_token.value
 
     def _parse_params(self) -> list[declaration.Param]:
         params: list[declaration.Param] = []
@@ -105,15 +96,16 @@ class SyntacticalAnalyzer:
             if isinstance(current_token, token.RightParen):
                 return params
 
-            if params and isinstance(self._get_current_token(), token.Comma):
-                self._next_token()
+            if params:
+                if isinstance(self._get_current_token(), token.Comma):
+                    self._next_token()
+                else:
+                    raise SyntaxError(f'Expected closing paren for paren at {left_paren_token.position}, but not found')
 
             type_: str = self._with_next_token(self._parse_type, False)
             name: str = self._with_next_token(self._parse_name, False)
 
             params.append(declaration.Param(type_, name))
-
-        raise SyntaxError(f'Expected closing paren for paren at {left_paren_token.position}, but not found')
 
     def _parse_body(self) -> Body:
         body = Body()
@@ -181,7 +173,7 @@ class SyntacticalAnalyzer:
         return assignable_token
 
     def _parse_assignment(self, divided: bool = True) -> statement.Assignment:
-        name = self._parse_name(True)
+        name = self._parse_name()
         assign_token: token.Assignable = self._with_next_token(self._parse_assign_token)
         expr: expression.Expression = self._with_next_token(self._parse_expression)
 
@@ -272,7 +264,7 @@ class SyntacticalAnalyzer:
     def _parse_return(self, divided: bool = True) -> statement.Return:
         if not isinstance(identifier_token := self._get_current_token(), token.Identifier) or \
                 identifier_token.value != statement.Return.KEYWORD:
-            raise SyntaxError(f'Expected return keyword at {identifier_token.position}')
+            raise SyntaxError(f'Expected {statement.Return.KEYWORD} keyword at {identifier_token.position}')
 
         if isinstance(current_token := self._with_next_token(self._get_current_token), token.Semicolon):
             expr = None
@@ -306,21 +298,12 @@ class SyntacticalAnalyzer:
         return parsed
 
     def _try_parse_assignment(self, divided: bool = True) -> statement.Assignment | None:
-        if self._try_parse(lambda: self._parse_name(True), self._parse_assign_token):
+        if self._try_parse(self._parse_name, self._parse_assign_token):
             return self._parse_assignment(divided)
 
     def _try_parse_variable(self, divided: bool = True) -> declaration.Variable | None:
         if self._try_parse(self._parse_type, self._parse_name):
             return self._parse_variable(divided)
-
-    def _try_parse_body(self) -> statement.Conditioned | None:
-        if isinstance(self._get_current_token(), token.LeftBrace):
-            return self._parse_body()
-
-    def _try_parse_conditioned(self, keyword: str) -> statement.Conditioned | None:
-        identifier_token = self._get_current_token()
-        if isinstance(identifier_token, token.Identifier) and identifier_token.value == keyword:
-            return self._parse_conditioned(keyword)
 
     def _try_parse_if(self) -> statement.If | None:
         identifier_token = self._get_current_token()

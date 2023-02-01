@@ -5,7 +5,7 @@ from translator.syntactical_analyzer.expression import Expression
 class Return(Statement):
     KEYWORD = 'return'
 
-    def __init__(self, expression: Expression | None):
+    def __init__(self, expression: Expression = None):
         self._expression = expression
 
     def __eq__(self, other):

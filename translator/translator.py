@@ -13,7 +13,7 @@ class Translator:
         tokens = lexical_analyzer.tokenize(source_code)
 
         for token in tokens:
-            print(f'token.{token.__class__.__name__}(\'{token.value}\'),')
+            print(f'token.{token.__class__.__name__}(\'{token.value}\', {token.line}, {token.column}),')
 
         program = syntactical_analyzer.parse(tokens)
 
