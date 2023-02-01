@@ -38,6 +38,7 @@ brew install python@3.11
 
 ```
 pip install -U pytest
+pip install -U pytest-cov
 ```
 
 ### Запуск приложения
@@ -56,8 +57,8 @@ python3 main.py /Users/alexoff/CSharpToJavaTranslator/test.txt
 
 #### Запуск тестов
 
-Запуск unit-тестов:
+Запуск unit-тестов c покрытием:
 
 ```
-pytest  translator/tests/
+pytest --cov=translator/ translator/tests/
 ```
