@@ -1,6 +1,6 @@
 from abc import ABC
 
-from translator.syntactical_analyzer.mapped import Mapped
+from translator.mapped import Mapped
 
 
 class Expression(Mapped, ABC):

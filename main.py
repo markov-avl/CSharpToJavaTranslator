@@ -4,9 +4,10 @@ from translator import Translator
 
 
 def main(path: str) -> None:
+    translator_ = Translator()
     try:
         with open(path, 'r') as source_code:
-            translated_code = Translator.translate(source_code.read())
+            translated_code = translator_.translate(source_code.read())
         print(translated_code)
     except FileNotFoundError:
         print('Файл не найден. Нужно передать полный путь к файлу.')

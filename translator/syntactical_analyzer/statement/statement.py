@@ -1,7 +1,7 @@
 from abc import ABC
 
 from translator.lexical_analyzer.token import Token
-from translator.syntactical_analyzer.mapped import Mapped
+from translator.mapped import Mapped
 
 
 class Statement(Mapped, ABC):

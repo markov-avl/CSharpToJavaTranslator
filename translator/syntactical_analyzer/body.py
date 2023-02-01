@@ -1,4 +1,4 @@
-from translator.syntactical_analyzer.mapped import Mapped
+from translator.mapped import Mapped
 from translator.syntactical_analyzer.statement.statement import Statement
 
 
