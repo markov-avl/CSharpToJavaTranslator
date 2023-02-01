@@ -1,10 +1,13 @@
 import unittest
 
 from translator.lexical_analyzer import token
-from translator.syntactical_analyzer import statement, declaration, expression, Parser, Program, AccessModifier, Body
+from translator.syntactical_analyzer import statement, declaration, expression, SyntacticalAnalyzer, Program, \
+    AccessModifier, Body
 
 
 class SyntacticalAnalyzerTestCase(unittest.TestCase):
+    syntactical_analyzer = SyntacticalAnalyzer()
+
     def test_class(self):
         tokens = [
             token.Identifier('class'),
@@ -21,8 +24,7 @@ class SyntacticalAnalyzerTestCase(unittest.TestCase):
                 )
             ]
         )
-        parser = Parser(tokens)
-        self.assertEqual(program, parser.parse())
+        self.assertEqual(program, self.syntactical_analyzer.parse(tokens))
 
     def test_class_method(self):
         tokens = [
@@ -55,8 +57,7 @@ class SyntacticalAnalyzerTestCase(unittest.TestCase):
                 )
             ]
         )
-        parser = Parser(tokens)
-        self.assertEqual(program, parser.parse())
+        self.assertEqual(program, self.syntactical_analyzer.parse(tokens))
 
     def test_class_methods(self):
         tokens = [
@@ -103,8 +104,7 @@ class SyntacticalAnalyzerTestCase(unittest.TestCase):
                 )
             ]
         )
-        parser = Parser(tokens)
-        self.assertEqual(program, parser.parse())
+        self.assertEqual(program, self.syntactical_analyzer.parse(tokens))
 
     def test_class_method_param(self):
         tokens = [
@@ -143,8 +143,7 @@ class SyntacticalAnalyzerTestCase(unittest.TestCase):
                 )
             ]
         )
-        parser = Parser(tokens)
-        self.assertEqual(program, parser.parse())
+        self.assertEqual(program, self.syntactical_analyzer.parse(tokens))
 
     def test_class_method_params(self):
         tokens = [
@@ -187,8 +186,7 @@ class SyntacticalAnalyzerTestCase(unittest.TestCase):
                 )
             ]
         )
-        parser = Parser(tokens)
-        self.assertEqual(program, parser.parse())
+        self.assertEqual(program, self.syntactical_analyzer.parse(tokens))
 
     def test_class_variable_declaration(self):
         tokens = [
@@ -234,8 +232,7 @@ class SyntacticalAnalyzerTestCase(unittest.TestCase):
                 )
             ]
         )
-        parser = Parser(tokens)
-        self.assertEqual(program, parser.parse())
+        self.assertEqual(program, self.syntactical_analyzer.parse(tokens))
 
     def test_class_assignment(self):
         tokens = [
@@ -280,8 +277,7 @@ class SyntacticalAnalyzerTestCase(unittest.TestCase):
                 )
             ]
         )
-        parser = Parser(tokens)
-        self.assertEqual(program, parser.parse())
+        self.assertEqual(program, self.syntactical_analyzer.parse(tokens))
 
     def test_class_if(self):
         tokens = [
@@ -516,8 +512,7 @@ class SyntacticalAnalyzerTestCase(unittest.TestCase):
                 )
             ]
         )
-        parser = Parser(tokens)
-        self.assertEqual(program, parser.parse())
+        self.assertEqual(program, self.syntactical_analyzer.parse(tokens))
 
 
 if __name__ == '__main__':

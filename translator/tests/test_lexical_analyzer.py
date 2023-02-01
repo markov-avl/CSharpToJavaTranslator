@@ -1,14 +1,16 @@
 import unittest
-from translator.lexical_analyzer.lexer import Lexer
+from translator.lexical_analyzer.lexical_analyzer import LexicalAnalyzer
 from translator.lexical_analyzer import token
 
 
 class LexicalAnalyzerTestCase(unittest.TestCase):
+    lexical_analyzer = LexicalAnalyzer()
+
     def test_first_block(self):
-        str = "class Test {\n int l = [] \n int a = 1;" \
-                "\n int b = 1.0; \n float c = a^b; \n Console.WriteLine('tests', c, \"check\")" \
-                "\n a:b \n \\ \n ~b \n}"
-        test_list = [
+        source = "class Test {\n int l = [] \n int a = 1;" \
+                 "\n int b = 1.0; \n float c = a^b; \n Console.WriteLine('tests', c, \"check\")" \
+                 "\n a:b \n \\ \n ~b \n}"
+        tokens = [
             token.Identifier("class", 1, 1),
             token.Identifier("Test", 1, 7),
             token.LeftBrace("{", 1, 12),
@@ -56,13 +58,12 @@ class LexicalAnalyzerTestCase(unittest.TestCase):
             token.Identifier("b", 9, 3),
             token.RightBrace("}", 10, 1)
         ]
-        result = Lexer.tokenize(str)
-        for i in range(len(result)):
-            self.assertEqual(test_list[i], result[i])
+        result = self.lexical_analyzer.tokenize(source)
+        self.assertListEqual(tokens, result)
 
     def test_second_block(self):
-        str = "a += 2\na++\na+b"
-        test_list = [
+        source = "a += 2\na++\na+b"
+        tokens = [
             token.Identifier("a", 1, 1),
             token.PlusAssign("+=", 1, 3),
             token.Int("2", 1, 6),
@@ -72,13 +73,12 @@ class LexicalAnalyzerTestCase(unittest.TestCase):
             token.Plus("+", 3, 2),
             token.Identifier("b", 3, 3)
         ]
-        result = Lexer.tokenize(str)
-        for i in range(len(result)):
-            self.assertEqual(test_list[i], result[i])
+        result = self.lexical_analyzer.tokenize(source)
+        self.assertListEqual(tokens, result)
 
     def test_third_block(self):
-        str = "a -= 2\na--\na-b"
-        test_list = [
+        source = "a -= 2\na--\na-b"
+        tokens = [
             token.Identifier("a", 1, 1),
             token.MinusAssign("-=", 1, 3),
             token.Int("2", 1, 6),
@@ -88,13 +88,12 @@ class LexicalAnalyzerTestCase(unittest.TestCase):
             token.Minus("-", 3, 2),
             token.Identifier("b", 3, 3)
         ]
-        result = Lexer.tokenize(str)
-        for i in range(len(result)):
-            self.assertEqual(test_list[i], result[i])
+        result = self.lexical_analyzer.tokenize(source)
+        self.assertListEqual(tokens, result)
 
     def test_fourth_block(self):
-        str = "a *= 2\na*b"
-        test_list = [
+        source = "a *= 2\na*b"
+        tokens = [
             token.Identifier("a", 1, 1),
             token.MulAssign("*=", 1, 3),
             token.Int("2", 1, 6),
@@ -102,13 +101,12 @@ class LexicalAnalyzerTestCase(unittest.TestCase):
             token.Mul("*", 2, 2),
             token.Identifier("b", 2, 3)
         ]
-        result = Lexer.tokenize(str)
-        for i in range(len(result)):
-            self.assertEqual(test_list[i], result[i])
+        result = self.lexical_analyzer.tokenize(source)
+        self.assertListEqual(tokens, result)
 
     def test_fifth_block(self):
-        str = "a /= 2\na/b"
-        test_list = [
+        source = "a /= 2\na/b"
+        tokens = [
             token.Identifier("a", 1, 1),
             token.DivAssign("/=", 1, 3),
             token.Int("2", 1, 6),
@@ -116,13 +114,12 @@ class LexicalAnalyzerTestCase(unittest.TestCase):
             token.Div("/", 2, 2),
             token.Identifier("b", 2, 3)
         ]
-        result = Lexer.tokenize(str)
-        for i in range(len(result)):
-            self.assertEqual(test_list[i], result[i])
+        result = self.lexical_analyzer.tokenize(source)
+        self.assertListEqual(tokens, result)
 
     def test_sixth_block(self):
-        str = "a %= 2\na%b"
-        test_list = [
+        source = "a %= 2\na%b"
+        tokens = [
             token.Identifier("a", 1, 1),
             token.ModAssign("%=", 1, 3),
             token.Int("2", 1, 6),
@@ -130,13 +127,12 @@ class LexicalAnalyzerTestCase(unittest.TestCase):
             token.Mod("%", 2, 2),
             token.Identifier("b", 2, 3)
         ]
-        result = Lexer.tokenize(str)
-        for i in range(len(result)):
-            self.assertEqual(test_list[i], result[i])
+        result = self.lexical_analyzer.tokenize(source)
+        self.assertListEqual(tokens, result)
 
     def test_seventh_block(self):
-        str = "a == 2\na=b"
-        test_list = [
+        source = "a == 2\na=b"
+        tokens = [
             token.Identifier("a", 1, 1),
             token.Eq("==", 1, 3),
             token.Int("2", 1, 6),
@@ -144,13 +140,12 @@ class LexicalAnalyzerTestCase(unittest.TestCase):
             token.Assign("=", 2, 2),
             token.Identifier("b", 2, 3)
         ]
-        result = Lexer.tokenize(str)
-        for i in range(len(result)):
-            self.assertEqual(test_list[i], result[i])
+        result = self.lexical_analyzer.tokenize(source)
+        self.assertListEqual(tokens, result)
 
     def test_eighth_block(self):
-        str = "a && b\na&b"
-        test_list = [
+        source = "a && b\na&b"
+        tokens = [
             token.Identifier("a", 1, 1),
             token.LogicalAnd("&&", 1, 3),
             token.Identifier("b", 1, 6),
@@ -158,13 +153,12 @@ class LexicalAnalyzerTestCase(unittest.TestCase):
             token.BitAnd("&", 2, 2),
             token.Identifier("b", 2, 3)
         ]
-        result = Lexer.tokenize(str)
-        for i in range(len(result)):
-            self.assertEqual(test_list[i], result[i])
+        result = self.lexical_analyzer.tokenize(source)
+        self.assertListEqual(tokens, result)
 
     def test_ninth_block(self):
-        str = "a || b\na|b"
-        test_list = [
+        source = "a || b\na|b"
+        tokens = [
             token.Identifier("a", 1, 1),
             token.LogicalOr("||", 1, 3),
             token.Identifier("b", 1, 6),
@@ -172,13 +166,12 @@ class LexicalAnalyzerTestCase(unittest.TestCase):
             token.BitOr("|", 2, 2),
             token.Identifier("b", 2, 3)
         ]
-        result = Lexer.tokenize(str)
-        for i in range(len(result)):
-            self.assertEqual(test_list[i], result[i])
+        result = self.lexical_analyzer.tokenize(source)
+        self.assertListEqual(tokens, result)
 
     def test_tenth_block(self):
-        str = "a != b\na!b"
-        test_list = [
+        source = "a != b\na!b"
+        tokens = [
             token.Identifier("a", 1, 1),
             token.Neq("!=", 1, 3),
             token.Identifier("b", 1, 6),
@@ -186,13 +179,12 @@ class LexicalAnalyzerTestCase(unittest.TestCase):
             token.LogicalNot("!", 2, 2),
             token.Identifier("b", 2, 3)
         ]
-        result = Lexer.tokenize(str)
-        for i in range(len(result)):
-            self.assertEqual(test_list[i], result[i])
+        result = self.lexical_analyzer.tokenize(source)
+        self.assertListEqual(tokens, result)
 
     def test_eleventh_block(self):
-        str = "a >> 2\na>=\na>"
-        test_list = [
+        source = "a >> 2\na>=\na>"
+        tokens = [
             token.Identifier("a", 1, 1),
             token.ShiftRight(">>", 1, 3),
             token.Int("2", 1, 6),
@@ -201,13 +193,12 @@ class LexicalAnalyzerTestCase(unittest.TestCase):
             token.Identifier("a", 3, 1),
             token.Greater(">", 3, 2)
         ]
-        result = Lexer.tokenize(str)
-        for i in range(len(result)):
-            self.assertEqual(test_list[i], result[i])
+        result = self.lexical_analyzer.tokenize(source)
+        self.assertListEqual(tokens, result)
 
     def test_twelfth_block(self):
-        str = "a << 2\na<=\na<"
-        test_list = [
+        source = "a << 2\na<=\na<"
+        tokens = [
             token.Identifier("a", 1, 1),
             token.ShiftLeft("<<", 1, 3),
             token.Int("2", 1, 6),
@@ -216,9 +207,8 @@ class LexicalAnalyzerTestCase(unittest.TestCase):
             token.Identifier("a", 3, 1),
             token.Lesser("<", 3, 2)
         ]
-        result = Lexer.tokenize(str)
-        for i in range(len(result)):
-            self.assertEqual(test_list[i], result[i])
+        result = self.lexical_analyzer.tokenize(source)
+        self.assertListEqual(tokens, result)
 
 
 if __name__ == '__main__':

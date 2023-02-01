@@ -6,15 +6,17 @@ from translator.lexical_analyzer import token
 from .program import Program
 
 
-class Parser:
-    def __init__(self, tokens: list[token.Token]):
-        self._tokens = tokens
-        self._token_index = 0
-        self._declarations: list[declaration.Declaration] = []
+class SyntacticalAnalyzer:
+    def __init__(self):
+        self._tokens: list[token.Token] = list()
+        self._token_index = int()
+        self._declarations: list[declaration.Declaration] = list()
 
-    def parse(self) -> Program:
-        if self._token_index == 0:
-            self._parse_program()
+    def parse(self, tokens: list[token.Token]) -> Program:
+        self._tokens = tokens.copy()
+        self._token_index = 0
+        self._declarations.clear()
+        self._parse_program()
         return Program(self._declarations)
 
     def _parse_program(self) -> None:

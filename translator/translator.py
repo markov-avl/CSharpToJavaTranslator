@@ -1,22 +1,20 @@
-from translator.lexical_analyzer import Lexer
-from translator.syntactical_analyzer import Parser
+from translator.code_generator import CodeGenerator
+from translator.lexical_analyzer import LexicalAnalyzer
+from translator.syntactical_analyzer import SyntacticalAnalyzer
 
 
-def translate(source: str, out: str = None) -> None:
-    with open(source, 'r') as infile:
-        program_cs = infile.read()
+class Translator:
+    @staticmethod
+    def translate(source_code: str) -> str:
+        lexical_analyzer = LexicalAnalyzer()
+        syntactical_analyzer = SyntacticalAnalyzer()
+        code_generator = CodeGenerator()
 
-    tokens = Lexer.tokenize(program_cs)
+        tokens = lexical_analyzer.tokenize(source_code)
 
-    for token in tokens:
-        print(f'token.{token.__class__.__name__}(\'{token.value}\'),')
+        for token in tokens:
+            print(f'token.{token.__class__.__name__}(\'{token.value}\'),')
 
-    # for token in tokens:
-    #     print(f'{str(token):<25} {token.value:<40} at {token.position}')
-    #
-    # parser = Parser(tokens)
-    # declarations = parser.parse()
-    #
-    # print()
-    # for declaration in declarations:
-    #     print(declaration.to_java())
+        program = syntactical_analyzer.parse(tokens)
+
+        return code_generator.generate(program)

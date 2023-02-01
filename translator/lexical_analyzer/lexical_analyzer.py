@@ -1,15 +1,15 @@
 from .token import Token
-from .arithmetic import Increment, Decrement, Mul, Div, Mod, Plus, Minus
-from .assignable import Assign, PlusAssign, MinusAssign, MulAssign, DivAssign, ModAssign
-from .bit import BitNot, BitAnd, BitOr, BitXor, ShiftLeft, ShiftRight
-from .closable import LeftParen, RightParen, LeftBracket, RightBracket, LeftBrace, RightBrace
-from .comparable import Greater, Lesser, Eq, Geq, Leq, Neq
-from .dynamic import Int, Float, Identifier
-from .logical import LogicalNot, LogicalAnd, LogicalOr
-from .syntax import Comma, Dot, Apostrophe, Quote, Semicolon, Colon, Backslash
+from .token import Increment, Decrement, Mul, Div, Mod, Plus, Minus
+from .token import Assign, PlusAssign, MinusAssign, MulAssign, DivAssign, ModAssign
+from .token import BitNot, BitAnd, BitOr, BitXor, ShiftLeft, ShiftRight
+from .token import LeftParen, RightParen, LeftBracket, RightBracket, LeftBrace, RightBrace
+from .token import Greater, Lesser, Eq, Geq, Leq, Neq
+from .token import Int, Float, Identifier
+from .token import LogicalNot, LogicalAnd, LogicalOr
+from .token import Comma, Dot, Apostrophe, Quote, Semicolon, Colon, Backslash
 
 
-class Tokenizer:
+class LexicalAnalyzer:
     _TOKENS: list[Token] = [
         Comma,  # ,
         Apostrophe,  # '
@@ -68,21 +68,26 @@ class Tokenizer:
         LogicalNot  # !
     ]
 
-    def __init__(self, program_code: str):
+    def __init__(self):
+        self._program_code = str()
+        self._line = int()
+        self._column = int()
+        self._symbol = int()
+        self._tokens: list[Token] = list()
+
+    def tokenize(self, program_code: str) -> list[Token]:
         self._program_code = program_code.strip('\n')
         self._line = 1
         self._column = 1
         self._symbol = 0
-        self._tokens: list[Token] = []
+        self._tokens.clear()
 
-    def get_tokens(self) -> list[Token]:
-        if self._symbol > 0:
-            return self._tokens
         while self._go_to_the_next_visible():
             if token := self._get_token():
                 self._tokens.append(token)
             else:
-                raise ValueError(f'Unknown token at {self._line} line, {self._column} column')
+                raise ValueError(f'Unknown token at {self._line}:{self._column}')
+
         return self._tokens
 
     def _get_token(self) -> Token | None:
@@ -94,9 +99,8 @@ class Tokenizer:
                 return token
 
     def _get_current_character(self) -> str | None:
-        if self._symbol >= len(self._program_code):
-            return
-        return self._program_code[self._symbol]
+        if self._symbol < len(self._program_code):
+            return self._program_code[self._symbol]
 
     def _go_ahead(self, steps: int = 1) -> None:
         for _ in range(steps):

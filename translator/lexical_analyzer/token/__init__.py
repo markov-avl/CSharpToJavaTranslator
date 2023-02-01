@@ -1,5 +1,4 @@
 from .token import Token
-from .tokenizer import Tokenizer
 
 from .arithmetic import Arithmetic, ArithmeticUnary, ArithmeticBinary
 from .assignable import Assignable

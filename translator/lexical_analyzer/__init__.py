@@ -1,1 +1,1 @@
-from .lexer import Lexer
+from .lexical_analyzer import LexicalAnalyzer
