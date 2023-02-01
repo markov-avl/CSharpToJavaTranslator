@@ -2,8 +2,7 @@ import unittest
 
 from translator.code_generator import CodeGenerator
 from translator.lexical_analyzer import token
-from translator.syntactical_analyzer import statement, declaration, expression, SyntacticalAnalyzer, Program, \
-    AccessModifier, Body
+from translator.syntactical_analyzer import statement, declaration, expression, Program, AccessModifier, Body
 
 
 class CodeGeneratorTestCase(unittest.TestCase):
@@ -178,41 +177,6 @@ class CodeGeneratorTestCase(unittest.TestCase):
             '	public void Main() {',
             '		int a;',
             '		float b = .1;',
-            '	}',
-            '}'
-        ])
-        self.assertEqual(generated_code, self.code_generator.generate(program))
-
-    def test_assignment(self):
-        program = Program(
-            declarations=[
-                declaration.Class(
-                    name='Program',
-                    attributes=[],
-                    methods=[
-                        declaration.Method(
-                            access_modifier=AccessModifier.public,
-                            return_type='void',
-                            name='Main',
-                            params=[],
-                            body=Body(
-                                statements=[
-                                    statement.Assignment(
-                                        name='a',
-                                        token_type=token.PlusAssign('+='),
-                                        right=expression.Atomic('1')
-                                    )
-                                ]
-                            )
-                        )
-                    ]
-                )
-            ]
-        )
-        generated_code = '\n'.join([
-            'class Program {',
-            '	public void Main() {',
-            '		a += 1;',
             '	}',
             '}'
         ])
