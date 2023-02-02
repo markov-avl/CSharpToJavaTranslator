@@ -1,10 +1,10 @@
-from .declaration import Declaration
 from .access_modifier import AccessModifier
+from .function import Function
 from .param import Param
 from translator.syntactical_analyzer.body import Body
 
 
-class Method(Declaration):
+class Method(Function):
     KEYWORD = None
 
     def __init__(self,
@@ -13,11 +13,8 @@ class Method(Declaration):
                  name: str,
                  params: list[Param],
                  body: Body):
-        super().__init__(name)
+        super().__init__(return_type, name, params, body)
         self._access_modifier = access_modifier
-        self._return_type = return_type
-        self._params = params
-        self._body = body
 
     def __eq__(self, other):
         if not isinstance(other, Method):
@@ -32,20 +29,6 @@ class Method(Declaration):
     def access_modifier(self) -> AccessModifier:
         return self._access_modifier
 
-    @property
-    def return_type(self) -> str:
-        return self._return_type
-
-    @property
-    def params(self) -> list[Param]:
-        return self._params
-
-    @property
-    def body(self) -> Body:
-        return self._body
-
     def to_java(self, indent: int = 0) -> str:
         access_modifier = self._access_modifier.to_java()
-        params = ', '.join(param.to_java() for param in self._params)
-        body = self._body.to_java(indent + 1)
-        return f'{access_modifier} {self._return_type} {self._name}({params}) {{\n{body}\n{self._indented(indent)}}}'
+        return f'{access_modifier} {super().to_java(indent).lstrip()}'

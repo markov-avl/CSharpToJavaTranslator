@@ -6,3 +6,4 @@ from .import_using import ImportUsing
 from .param import Param
 from .access_modifier import AccessModifier
 from .variable import Variable
+from .function import Function
